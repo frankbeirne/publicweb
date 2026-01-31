@@ -3,37 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#c06bff">
+    <link rel="icon" type="image/png" href="carlo.png">
+    <link rel="preload" as="image" href="frank.png">
+    <link rel="preload" as="image" href="carlo.png">
     <title>Frank Beirne</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+        html {
+            height: 100%;
+            background: linear-gradient(45deg, #ff1493 0%, #ff6b9d 15%, #c06bff 30%, #7b68ee 45%, #4ecdc4 60%, #00ff7f 75%, #ffe66d 90%, #ff1493 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+            background-attachment: fixed;
+        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: transparent;
+            color: #1a1a1a;
             overflow: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="28" font-size="28">🦴</text></svg>') 16 16, auto;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         .container {
             text-align: center;
-            z-index: 1;
+            position: relative;
+            z-index: 150;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .container.visible {
+            opacity: 1;
         }
         .logo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid white;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            width: 132px;
+            height: auto;
             margin-bottom: 20px;
+            transition: transform 0.2s ease;
+            filter: drop-shadow(0 0 10px rgba(255, 20, 147, 0.5)) drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
+            border-radius: 50%;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 15px rgba(255, 20, 147, 0.8)) drop-shadow(0 0 30px rgba(0, 255, 255, 0.6));
+        }
+        .logo.tilting {
+            animation: quickTilt 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .logo.tilting:hover {
+            animation: quickTiltScaled 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes quickTilt {
+            0% { transform: rotate(0deg); }
+            30% { transform: rotate(-8deg); }
+            70% { transform: rotate(8deg); }
+            100% { transform: rotate(0deg); }
+        }
+        @keyframes quickTiltScaled {
+            0% { transform: scale(1.05) rotate(0deg); }
+            30% { transform: scale(1.05) rotate(-8deg); }
+            70% { transform: scale(1.05) rotate(8deg); }
+            100% { transform: scale(1.05) rotate(0deg); }
         }
         h1 {
-            font-size: 2.5rem;
+            font-size: 4rem;
             margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(120deg, #ff1493, #ffff00, #00ffff, #ff1493);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowShift 3s ease infinite;
+            filter: drop-shadow(3px 3px 0px #ff1493) drop-shadow(-2px -2px 0px #00ffff);
+            transform: rotate(-2deg);
+        }
+        @keyframes rainbowShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         .links {
             display: flex;
@@ -41,89 +100,351 @@
             justify-content: center;
         }
         .links a {
-            color: white;
+            color: #1a1a1a;
             text-decoration: none;
-            padding: 12px 24px;
-            border: 2px solid white;
-            border-radius: 30px;
+            padding: 16px 36px;
+            background: linear-gradient(135deg, #ffff00, #ff69b4, #00ffff);
+            border: 4px solid #1a1a1a;
+            border-radius: 50px;
             transition: all 0.3s ease;
-            font-weight: 500;
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-transform: lowercase;
+            box-shadow: 5px 5px 0 #1a1a1a, 10px 10px 0 rgba(255, 20, 147, 0.3);
+            position: relative;
+            z-index: 150;
+            transform: rotate(-1deg);
+        }
+        .links a:nth-child(2) {
+            transform: rotate(1deg);
+            background: linear-gradient(135deg, #00ffff, #ff69b4, #ffff00);
         }
         .links a:hover {
-            background: white;
-            color: #764ba2;
+            background: linear-gradient(135deg, #ff1493, #ffff00, #00ffff);
+            transform: translate(3px, 3px) rotate(-1deg) scale(1.05);
+            box-shadow: 2px 2px 0 #1a1a1a, 5px 5px 0 rgba(255, 20, 147, 0.3);
+        }
+        .links a:nth-child(2):hover {
+            transform: translate(3px, 3px) rotate(1deg) scale(1.05);
+        }
+        .links a:active {
+            transform: translate(5px, 5px) rotate(-1deg);
+            box-shadow: 0 0 0 #1a1a1a;
+        }
+        .private-link {
+            margin-top: 20px;
+            font-size: 1rem;
+            opacity: 0.75;
+            transition: opacity 0.2s ease;
+        }
+        .private-link a {
+            color: #444;
+            text-decoration: none;
+        }
+        .private-link a:hover {
+            opacity: 1;
+            text-decoration: underline;
         }
         #carlo {
             position: fixed;
             width: 80px;
             height: auto;
-            pointer-events: auto;
-            cursor: pointer;
-            transition: transform 0.1s ease;
+            pointer-events: none;
+            cursor: none;
+            transition: transform 0.4s ease, opacity 0.3s ease;
             z-index: 100;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            opacity: 0;
+        }
+        #carlo.visible {
+            opacity: 0.7;
         }
         #carlo:hover { transform: scale(1.1); }
+        .bone {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 99;
+            animation: floatDrift 3.5s ease-out forwards;
+        }
+        @keyframes floatDrift {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--drift-x), -120px) rotate(var(--drift-rotation));
+            }
+        }
         .bone-message {
             position: fixed;
-            font-size: 1.2rem;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 2px solid #1a1a1a;
             pointer-events: none;
-            animation: floatUp 2s ease-out forwards;
-            z-index: 99;
+            animation: toastSlide 2s ease-out forwards;
+            z-index: 200;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
         }
-        @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(-100px); }
+        .hint {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(26, 26, 26, 0.6);
+            text-align: center;
+            pointer-events: none;
+            z-index: 1;
+            animation: gentleBounce 2s ease-in-out infinite;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .hint.visible {
+            opacity: 1;
+        }
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+        @keyframes toastSlide {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-50px);
+            }
+            15% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            85% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-50px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                background: #c06bff;
+                animation: none;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            .links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .hint {
+                bottom: 20px;
+                font-size: 0.9rem;
+            }
+            .bone-message {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="frank.png" alt="Frank Beirne" class="logo">
+        <img src="frank.png" alt="Frank Beirne" class="logo" width="132" height="132">
         <h1>Frank Beirne</h1>
         <div class="links">
             <a href="https://linkedin.com/in/frankbeirne" target="_blank">LinkedIn</a>
-            <a href="mailto:frank@example.com">Email</a>
+            <a href="mailto:website@frankbeirne.com">Email</a>
+        </div>
+        <div class="private-link">
+            <a href="https://requests.carldog.com" target="_blank">🔒 secret login</a>
         </div>
     </div>
 
     <img src="carlo.png" alt="Carlo the dog" id="carlo">
 
+    <div class="hint">✨ click anywhere to give carlo a bone ✨</div>
+
     <script>
         const carlo = document.getElementById('carlo');
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let carloX = mouseX;
-        let carloY = mouseY;
+        const logo = document.querySelector('.logo');
+
+        let carloX = 0;
+        let carloY = 0;
+        let mouseX = 0;
+        let mouseY = 0;
+        let dx = 0;
+        let dy = 0;
+        let carloScale = 1;
+        let tiltTime = 0;
+        let isTilting = false;
+        let toastCooldown = false;
+        let autoTiltInterval = null;
+        let hasInteracted = false;
+
+        // Set mobile solid background (Safari can't bleed gradients)
+        const isMobileDevice = window.innerWidth <= 768;
+        if (isMobileDevice) {
+            document.documentElement.style.background = '#c06bff';
+            document.documentElement.style.animation = 'none';
+        }
+
+        // Wait for page to fully load before positioning Carlo
+        window.addEventListener('load', () => {
+            const logoRect = logo.getBoundingClientRect();
+            carloX = logoRect.right + 60;
+            carloY = logoRect.top - 20;
+            mouseX = carloX;
+            mouseY = carloY;
+            // Fade in everything after positioning
+            setTimeout(() => {
+                document.querySelector('.container').classList.add('visible');
+                carlo.classList.add('visible');
+                document.querySelector('.hint').classList.add('visible');
+            }, 50);
+        });
+
+        // Carlo tilt animation - repeats every second until interaction
+        function startCarloTilt() {
+            if (!isTilting) {
+                carloScale = 1.5;
+                isTilting = true;
+                tiltTime = 0;
+
+                // Gradually scale back down
+                setTimeout(() => {
+                    const scaleDownInterval = setInterval(() => {
+                        carloScale -= 0.05;
+                        if (carloScale <= 1) {
+                            carloScale = 1;
+                            clearInterval(scaleDownInterval);
+                        }
+                    }, 50);
+                }, 2000);
+            }
+        }
+
+        // Start repeating tilt after 1 second
+        setTimeout(() => {
+            startCarloTilt();
+            autoTiltInterval = setInterval(() => {
+                if (!hasInteracted) {
+                    startCarloTilt();
+                }
+            }, 5000); // Repeat every 5 seconds
+        }, 1000);
+
+        // Stop auto-tilt on interaction
+        function stopAutoTilt() {
+            if (!hasInteracted) {
+                hasInteracted = true;
+                if (autoTiltInterval) {
+                    clearInterval(autoTiltInterval);
+                    autoTiltInterval = null;
+                }
+            }
+        }
+
+        // Frank tilt animation
+        logo.addEventListener('mouseenter', () => {
+            logo.classList.add('tilting');
+        });
+        logo.addEventListener('animationend', () => {
+            logo.classList.remove('tilting');
+        });
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+            stopAutoTilt();
         });
 
         function animate() {
-            const dx = mouseX - carloX;
-            const dy = mouseY - carloY;
-            carloX += dx * 0.08;
-            carloY += dy * 0.08;
-            carlo.style.left = (carloX - 40) + 'px';
-            carlo.style.top = (carloY - 40) + 'px';
+            dx = mouseX - carloX;
+            dy = mouseY - carloY;
+            carloX += dx * 0.15;
+            carloY += dy * 0.15;
+            carlo.style.left = (carloX - 60) + 'px';
+            carlo.style.top = (carloY - 60) + 'px';
 
-            // Flip carlo based on movement direction
-            carlo.style.transform = dx < -1 ? 'scaleX(-1)' : 'scaleX(1)';
+            // Calculate tilt rotation - continues through entire animation
+            let tiltRotation = 0;
+            if (isTilting) {
+                tiltTime += 0.13;
+                tiltRotation = Math.sin(tiltTime) * 30; // Tilt 30 degrees back and forth
+                // Continue tilting for full 3 second animation cycle
+                if (tiltTime >= Math.PI * 8) { // 4 full cycles over ~3 seconds
+                    isTilting = false;
+                    tiltTime = 0;
+                }
+            }
+
+            // Apply scale and tilt
+            carlo.style.transform = `scale(${carloScale}) rotate(${tiltRotation}deg)`;
 
             requestAnimationFrame(animate);
         }
         animate();
 
-        carlo.addEventListener('click', (e) => {
-            const msg = document.createElement('div');
-            msg.className = 'bone-message';
-            msg.innerHTML = '🦴 Carlo says thanks for the bone! 🦴';
-            msg.style.left = (e.clientX - 100) + 'px';
-            msg.style.top = (e.clientY - 30) + 'px';
-            document.body.appendChild(msg);
-            setTimeout(() => msg.remove(), 2000);
+        document.addEventListener('click', (e) => {
+            stopAutoTilt();
+            // Scale up carlo and start tilt (only on first click)
+            if (!isTilting) {
+                carloScale = 1.5;
+                isTilting = true;
+                tiltTime = 0;
+
+                // Gradually scale back down
+                setTimeout(() => {
+                    const scaleDownInterval = setInterval(() => {
+                        carloScale -= 0.05;
+                        if (carloScale <= 1) {
+                            carloScale = 1;
+                            clearInterval(scaleDownInterval);
+                        }
+                    }, 50);
+                }, 2000);
+            }
+
+            // Create single bone with drift
+            const bone = document.createElement('div');
+            bone.className = 'bone';
+            bone.innerHTML = '🦴';
+            bone.style.left = e.clientX + 'px';
+            bone.style.top = (e.clientY - 75) + 'px';
+
+            // Random horizontal drift and rotation
+            const drift = (Math.random() - 0.5) * 80; // -40 to 40px horizontal drift
+            const rotation = (Math.random() - 0.5) * 180; // random rotation
+            bone.style.setProperty('--drift-x', `${drift}px`);
+            bone.style.setProperty('--drift-rotation', `${rotation}deg`);
+
+            document.body.appendChild(bone);
+            setTimeout(() => bone.remove(), 3500);
+
+            // Show toast message (with cooldown)
+            if (!toastCooldown) {
+                toastCooldown = true;
+                const msg = document.createElement('div');
+                msg.className = 'bone-message';
+                msg.innerHTML = '🦴 carlo says thanks for the bone!';
+                document.body.appendChild(msg);
+                setTimeout(() => {
+                    msg.remove();
+                    toastCooldown = false;
+                }, 3000);
+            }
         });
     </script>
 </body>
