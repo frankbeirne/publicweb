@@ -151,7 +151,7 @@
             height: auto;
             pointer-events: none;
             cursor: none;
-            transition: transform 0.4s ease, opacity 0.3s ease;
+            transition: transform 0.38s ease, opacity 0.29s ease;
             z-index: 100;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
             opacity: 0;
@@ -190,7 +190,7 @@
             border-radius: 10px;
             border: 2px solid #1a1a1a;
             pointer-events: none;
-            animation: toastSlide 2s ease-out forwards;
+            animation: toastSlide 4s ease-out forwards;
             z-index: 200;
             box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
             white-space: nowrap;
@@ -223,11 +223,11 @@
                 opacity: 0;
                 transform: translateX(-50%) translateY(-50px);
             }
-            15% {
+            7.5% {
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
             }
-            85% {
+            92.5% {
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
             }
@@ -330,8 +330,8 @@
                             carloScale = 1;
                             clearInterval(scaleDownInterval);
                         }
-                    }, 50);
-                }, 2000);
+                    }, 46);
+                }, 1400);
             }
         }
 
@@ -381,10 +381,10 @@
             // Calculate tilt rotation - continues through entire animation
             let tiltRotation = 0;
             if (isTilting) {
-                tiltTime += 0.13;
+                tiltTime += 0.16;
                 tiltRotation = Math.sin(tiltTime) * 30; // Tilt 30 degrees back and forth
-                // Continue tilting for full 3 second animation cycle
-                if (tiltTime >= Math.PI * 8) { // 4 full cycles over ~3 seconds
+                // Continue tilting for animation cycle
+                if (tiltTime >= Math.PI * 8) { // 4 full cycles
                     isTilting = false;
                     tiltTime = 0;
                 }
@@ -413,8 +413,8 @@
                             carloScale = 1;
                             clearInterval(scaleDownInterval);
                         }
-                    }, 50);
-                }, 2000);
+                    }, 46);
+                }, 1550);
             }
 
             // Create single bone with drift
@@ -443,7 +443,7 @@
                 setTimeout(() => {
                     msg.remove();
                     toastCooldown = false;
-                }, 3000);
+                }, 4000);
             }
         });
     </script>
