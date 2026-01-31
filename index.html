@@ -164,8 +164,8 @@
             position: fixed;
             font-size: 2rem;
             pointer-events: none;
-            z-index: 99;
-            animation: floatDrift 3.5s ease-out forwards;
+            z-index: 101;
+            animation: floatDrift 5s ease-out forwards;
         }
         @keyframes floatDrift {
             0% {
@@ -174,7 +174,7 @@
             }
             100% {
                 opacity: 0;
-                transform: translate(var(--drift-x), -120px) rotate(var(--drift-rotation));
+                transform: translate(var(--drift-x), -180px) rotate(var(--drift-rotation));
             }
         }
         .bone-message {
@@ -421,8 +421,8 @@
             const bone = document.createElement('div');
             bone.className = 'bone';
             bone.innerHTML = '🦴';
-            bone.style.left = e.clientX + 'px';
-            bone.style.top = (e.clientY - 75) + 'px';
+            bone.style.left = (e.clientX - 30) + 'px';
+            bone.style.top = (e.clientY - 20) + 'px';
 
             // Random horizontal drift and rotation
             const drift = (Math.random() - 0.5) * 80; // -40 to 40px horizontal drift
@@ -431,7 +431,7 @@
             bone.style.setProperty('--drift-rotation', `${rotation}deg`);
 
             document.body.appendChild(bone);
-            setTimeout(() => bone.remove(), 3500);
+            setTimeout(() => bone.remove(), 5000);
 
             // Show toast message (with cooldown)
             if (!toastCooldown) {
