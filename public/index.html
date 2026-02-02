@@ -30,6 +30,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding-bottom: 31px;
             background: transparent;
             color: #1a1a1a;
             overflow: hidden;
@@ -167,7 +168,7 @@
         }
         .hint {
             position: fixed;
-            bottom: 100px;
+            bottom: 120px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 1rem;
@@ -196,7 +197,7 @@
             html { background: #c06bff; animation: none; }
             h1 { font-size: 2.5rem; }
             .links { flex-direction: column; gap: 15px; }
-            .hint { bottom: 20px; font-size: 0.9rem; }
+            .hint { bottom: 40px; font-size: 0.9rem; }
             .bone-message { font-size: 0.9rem; }
         }
     </style>
@@ -253,8 +254,8 @@
         // Initial positioning and fade-in
         window.addEventListener('load', () => {
             const logoRect = logo.getBoundingClientRect();
-            carloX = logoRect.right + 60;
-            carloY = logoRect.top - 20;
+            carloX = logoRect.right + 70;
+            carloY = logoRect.top + logoRect.height / 2 + 40;
             mouseX = carloX;
             mouseY = carloY;
             setTimeout(() => {
@@ -273,7 +274,8 @@
         }, 1000);
 
         // Frank interactions
-        logo.addEventListener('mouseenter', () => { logo.classList.add('tilting'); mouseOverFrank = true; });
+        const isTouchDevice = 'ontouchstart' in window;
+        logo.addEventListener('mouseenter', () => { logo.classList.add('tilting'); if (isTouchDevice) mouseOverFrank = true; });
         logo.addEventListener('mouseleave', () => { mouseOverFrank = false; });
         logo.addEventListener('animationend', () => { logo.classList.remove('tilting'); });
         logo.addEventListener('click', (e) => {
