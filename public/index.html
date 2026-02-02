@@ -56,6 +56,8 @@
             transition: transform 0.2s ease;
             filter: drop-shadow(0 0 10px rgba(255, 20, 147, 0.5)) drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
             border-radius: 50%;
+            position: relative;
+            z-index: 200;
         }
         .logo:hover {
             transform: scale(1.05);
@@ -358,16 +360,32 @@
         }
 
         // Frank tilt animation
+        let mouseOverFrank = false;
         logo.addEventListener('mouseenter', () => {
             logo.classList.add('tilting');
+            mouseOverFrank = true;
+        });
+        logo.addEventListener('mouseleave', () => {
+            mouseOverFrank = false;
         });
         logo.addEventListener('animationend', () => {
             logo.classList.remove('tilting');
         });
+        // Prevent clicks on frank from triggering carlo's bone animation
+        // and replay his tilt animation on each click
+        logo.addEventListener('click', (e) => {
+            e.stopPropagation();
+            logo.classList.remove('tilting');
+            void logo.offsetWidth; // force reflow to restart animation
+            logo.classList.add('tilting');
+        });
 
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            // Don't update carlo's target when mouse is over frank
+            if (!mouseOverFrank) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }
             stopAutoTilt();
         });
 
